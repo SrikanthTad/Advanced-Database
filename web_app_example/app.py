@@ -29,7 +29,6 @@ def new_item():
 
     conn.commit()
     c.close()
-
     return '<p>The new task was inserted into the database, the ID is %s</p>' % new_id
 
 @route('/edit/<id>', method='GET')

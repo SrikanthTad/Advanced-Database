@@ -1,6 +1,6 @@
 import unittest
 import requests
-
+import calc
 def make_calc_request(expression, expected_value):
     result = requests.get("http://localhost:8080/calc/"+expression)
     assert result.status_code == 200
@@ -16,6 +16,7 @@ class Service_TestCase(unittest.TestCase):
         make_calc_request("1+2+3+4",10)
         make_calc_request("1+1",2)
         make_calc_request("1",1)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

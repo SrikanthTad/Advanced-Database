@@ -1,5 +1,7 @@
 import unittest
 import requests
+import random
+import calc
 
 def parse_service_call(expression):
     if not type(expression) is str:

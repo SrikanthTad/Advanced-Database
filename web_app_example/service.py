@@ -1,6 +1,6 @@
 from bottle import route, run, request
-
 import parser
+import calc
 
 @route('/calc/')
 @route('/calc/<expression>')
@@ -12,4 +12,4 @@ def evaluate(expression=""):
         value = '#NONE#'
     return {'expression':expression, 'value':value}
 
-run(host='localhost', port=8080)
+run()
