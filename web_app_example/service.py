@@ -1,6 +1,7 @@
 from bottle import route, run, request
 import parser
-import calc
+#import calc
+
 
 @route('/calc/')
 @route('/calc/<expression>')

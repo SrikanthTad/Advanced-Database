@@ -1,12 +1,50 @@
-from decimal import Decimal
-import random
-import calc
+def solve_exponential(string, start, end, e_position):
+    try:
+        value = int(string[start: e_position])
+        exponent = int(string[e_position+1: end+1])
+
+        return '{0:.10f}'.format((value * (10 ** exponent)))
+    except ValueError:
+        return None
+
+
+def parse_exponential(s):
+        number = "0123456789."
+
+        e_position = s.find('e')
+        e_left = -1
+        e_right = len(s)
+        for x in range(e_position-2,0,-1):
+
+            if number.find(s[x]) == -1:
+                e_left = x
+                break
+        temp = len(s)
+        for x in range(e_position+1,len(s)):
+
+            if number.find(s[x]) != -1:
+                temp = x
+                break
+        for x in range(temp+1,len(s)):
+            print(s[x],'y')
+            if number.find(s[x]) == -1:
+                e_right = x
+                break
+        value = solve_exponential(s,e_left+1, e_right-1, e_position )
+        if value == None:
+            return None
+        string = s[0:e_left+1] + str(value) + s[e_right:]
+        return string
 
 def parse(s):
     if not type(s) is str:
         return None
     if len(s) < 1:
         return None
+    if 'e' in s:
+        s = parse_exponential(s)
+        if s == None:
+        	return None
     if '+' in s:
         s_list = s.split("+")
         n_list = [parse(s) for s in s_list]
@@ -35,35 +73,3 @@ def parse(s):
             v = ord(c) - ord('0')
             n = n + v * divisor
     return n
-
-#       if "e" in outro:
-#          newoutro = float(outro)
-#          nnewoutro = format(newoutro, '.2f')
-#
-#          return nnewoutro
-#
-#      else:
-#          choice = input("do you want your answer in scientific notation? (y/n)")
-#          if choice == 'y':
-#              yesschoice = float(outro)
-#              yeschoice = Decimal(yesschoice)
-#              return format(yeschoice, '.2e')
-#          else:
-#              return outro
-#
-#  print(parser(intro))
-#
-# # Mode 1: normal
-# # But it has those extra 0's.
-# def format_e1(n):
-#     return format(n,'e');
-#
-# # Mode 2: decimal limit
-# # example: 2 digit
-# def format_e2(n):
-#     return format(n,'.2e');
-#
-# # Mode 3: remove all trailing zeros automatically.
-# def format_e3(n):
-#     a = '%e' % n
-#     return a.split('E')[0].rstrip('0').rstrip('.') + 'E' + a.split('E')[1]

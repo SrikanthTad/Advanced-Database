@@ -1,7 +1,6 @@
 import unittest
 import requests
 import random
-import calc
 
 def parse_service_call(expression):
     if not type(expression) is str:
@@ -72,6 +71,17 @@ class Parser_TestCase(unittest.TestCase):
     def test_007_parser_can_add_numbers(self):
         assert parse_service_call("1+2+3+4") == 10
         assert parse_service_call("1+2+3+NOTHING") == None
+
+    def test_008_parser_can_parse_scientific_notation(self):
+        assert parse_service_call("3e3") == 3000
+        assert parse_service_call("3e-3") == 0.003
+        assert parse_service_call("-3e3") == -3000
+        assert parse_service_call("-3e-3") == -0.003
+        assert parse_service_call("3+3e3+4") == 3007
+        assert parse_service_call("4e-2") == 0.04
+        assert parse_service_call("-4e-+2") == None
+        assert parse_service_call("-4e-2") == -0.04
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2, exit=False)
