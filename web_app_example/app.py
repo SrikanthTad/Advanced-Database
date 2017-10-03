@@ -2,7 +2,7 @@ import sqlite3
 from bottle import route, run, template, debug, request
 
 @route('/')
-@route('/index.html')
+#@route('/index.html')
 @route('/tasks')
 def tasks():
     conn = sqlite3.connect('todo.db')
